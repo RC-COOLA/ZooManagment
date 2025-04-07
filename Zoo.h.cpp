@@ -1,27 +1,28 @@
 #ifndef ZOO_H
 #define ZOO_H
 
-#include "Animal.h.cpp"
-#include "Mammal.h.cpp"
-#include "Bird.h.cpp"
-#include "Reptile.h.cpp"
+#include "Animal.h"
+#include "Mammal.h"
+#include "Bird.h"
+#include "Reptile.h"
 #include <iostream>
 #include <fstream>
 
 class Zoo {
 private:
-    Animal** animals;
-    int numAnimals;
+Animal** animals;
+int numAnimals;
     int maxAnimals;
 
+
     void resize() {
-        maxAnimals *= 2;
-        Animal** newArray = new Animal*[maxAnimals];
-        for (int i = 0; i < numAnimals; ++i) {
-            newArray[i] = animals[i];
-        }
-        delete[] animals;
-        animals = newArray;
+      maxAnimals *= 2;
+       Animal** newArray = new Animal*[maxAnimals];
+      for (int i = 0; i < numAnimals; ++i) {
+         newArray[i] = animals[i];
+    }
+     delete[] animals;
+     animals = newArray;
     }
 
 public:
@@ -45,14 +46,14 @@ public:
 
     void removeAnimal(const std::string& name) {
         for (int i = 0; i < numAnimals; ++i) {
-            if (animals[i]->getName() == name) {
-                delete animals[i];
-                for (int j = i; j < numAnimals - 1; ++j) {
-                    animals[j] = animals[j + 1];
+         if (animals[i]->getName() == name) {
+            delete animals[i];
+            for (int j = i; j < numAnimals - 1; ++j) {
+                 animals[j] = animals[j + 1];
                 }
                 --numAnimals;
-                std::cout << name << " has been removed from the zoo." << std::endl;
-                return;
+             std::cout << name << " has been removed from the zoo." << std::endl;
+             return;
             }
         }
         std::cout << "Animal not found!" << std::endl;
@@ -60,10 +61,10 @@ public:
 
     void displayAllAnimals() const {
         if (numAnimals == 0) {
-            std::cout << "No animals in the zoo." << std::endl;
+         std::cout << "No animals in the zoo." << std::endl;
         } else {
-            for (int i = 0; i < numAnimals; ++i) {
-                animals[i]->displayInfo();
+        for (int i = 0; i < numAnimals; ++i) {
+         animals[i]->displayInfo();
             }
         }
     }
@@ -71,15 +72,15 @@ public:
     void saveToFile(const std::string& filename) const {
         std::ofstream outFile(filename);
         if (outFile.is_open()) {
-            for (int i = 0; i < numAnimals; ++i) {
-                outFile << animals[i]->getName() << " "
-                        << animals[i]->getAge() << " "
-                        << animals[i]->getSpecies() << std::endl;
+         for (int i = 0; i < numAnimals; ++i) {
+            outFile << animals[i]->getName() << " "
+                 << animals[i]->getAge() << " "
+                 << animals[i]->getSpecies() << std::endl;
             }
-            outFile.close();
-            std::cout << "Zoo data saved to " << filename << std::endl;
+         outFile.close();
+        std::cout << "Zoo data saved to " << filename << std::endl;
         } else {
-            std::cout << "Failed to open file." << std::endl;
+         std::cout << "Failed to open file." << std::endl;
         }
     }
 
@@ -91,11 +92,11 @@ public:
             while (inFile >> name >> age >> species) {
                 if (species == "Mammal") {
                     addAnimal(new Mammal(name, age, species));
-                } else if (species == "Bird") {
-                    addAnimal(new Bird(name, age, species));
-                } else if (species == "Reptile") {
-                    addAnimal(new Reptile(name, age, species));
-                }
+            } else if (species == "Bird") {
+               addAnimal(new Bird(name, age, species));
+             } else if (species == "Reptile") {
+                addAnimal(new Reptile(name, age, species));
+            }
             }
             inFile.close();
             std::cout << "Zoo data loaded from " << filename << std::endl;
