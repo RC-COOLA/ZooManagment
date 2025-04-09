@@ -5,9 +5,9 @@
 
 class Animal {
 protected:
-    std::string name;
-    int age;
-    std::string species;
+ std::string name;
+int age;
+ std::string species;
 
 public:
     Animal(std::string name, int age, std::string species)
